@@ -303,16 +303,15 @@ public class Deidentifier {
                          JFrame frame =  new JFrame();
                 frame.setContentPane(new JPanel());
                //Display the window.
-               frame.setSize(605, 160);
+               frame.setSize(550, 160);
                frame.setBackground(Color.white);
                frame.setVisible(true); 
                frame.setTitle("Read Me!");
                javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
                jTextArea1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
                String ident = fileName.concat(".Identified"); 
-               jTextArea1.setSize(605, 160);
-               jTextArea1.setText("    \n                Deidentification succesfull2!!! \n\n    Please proceed to genomics.scripps.edu and \n    upload the file: " + newNameGz + 
-                       "\n    Note: don't delete the file " + ident + "\n    You will need this file for Identification once you have SG ADVISER annotation results");
+               jTextArea1.setText("    \n                Deidentification successful! \n\n    Please proceed to genomics.scripps.edu and upload the file: \n    " + newNameGz + 
+               "\n    Note: don't delete the file " + ident + ", you will need this file for \n    Identification once you have SG ADVISER annotation results.");
                jTextArea1.setEditable(false);
                frame.add(jTextArea1);
                frame.setVisible(true); 
@@ -382,16 +381,15 @@ public class Deidentifier {
                 JFrame frame =  new JFrame();
                 frame.setContentPane(new JPanel());
                //Display the window.
-               frame.setSize(605, 160);
+               frame.setSize(550, 160);
                frame.setBackground(Color.white);
                frame.setVisible(true); 
                frame.setTitle("Read Me!");
                javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
-               jTextArea1.setSize(605, 160);
                jTextArea1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
                String ident = fileName.concat(".Identified"); 
-               jTextArea1.setText("    \n                Deidentification succesfull2!!! \n\n    Please proceed to genomics.scripps.edu and \n    upload the file: " + newNameGz + 
-                       "\n    Note: don't delete the file " + ident + "\n    You will need this file for Identification once you have SG ADVISER annotation results");
+               jTextArea1.setText("    \n                Deidentification successful! \n\n    Please proceed to genomics.scripps.edu and upload the file: \n    " + newNameGz + 
+               "\n    Note: don't delete the file " + ident + ", you will need this file for \n    Identification once you have SG ADVISER annotation results.");
                jTextArea1.setEditable(false);
                frame.add(jTextArea1);
                frame.setVisible(true); 
@@ -552,13 +550,15 @@ public static void deleteDoubles() throws FileNotFoundException, IOException {
         
         System.out.println("Duplicated variants removed succesfully!");
         System.out.println("Number of duplicated variants: " + duplicatedVariants);
-        System.out.println("Deidentification succesful!  Please go to http://genomics.scripps.edu and upload the file Deidentified.tar.gz for annotation! Attn: do not delete the IdentifiedFile folder, you will need it once you have the annotated genome and you have to identify it!");
+        System.out.println("Deidentification successful!  Please go to http://genomics.scripps.edu and upload the file Deidentified.tar.gz for annotation! Attn: do not delete the IdentifiedFile folder, you will need it once you have the annotated genome and you have to identify it!");
 }
 
 public static void cleanUp() throws IOException {
-        Runtime.getRuntime().exec("rm combined_sorted.txt");
-        Runtime.getRuntime().exec("rm Deidentified.txt");
-        Runtime.getRuntime().exec("rm Combined.txt");
+    
+     //   Runtime.getRuntime().exec("rm combined_sorted.txt");
+     //   Runtime.getRuntime().exec("rm Deidentified.txt");
+     //   Runtime.getRuntime().exec("rm Combined.txt");
+        
   //      Runtime.getRuntime().exec("mkdir IdentifiedFile");
    //     Runtime.getRuntime().exec("cp parse.txt IdentifiedFile/");
     //    Runtime.getRuntime().exec("rm parse.txt");

@@ -121,10 +121,17 @@ public class DataStructure {
                          try{ 
                         BufferedWriter bw = new BufferedWriter(
                         new FileWriter("parsed.txt", true));  
-                 //       String goodLine = String.valueOf(datacount).concat("\t").concat("chr").concat(chrom).concat("\t").concat(String.valueOf(begin)).concat("\t").
-                   //         concat(String.valueOf(end)).concat("\t").concat(varType).concat("\t").concat(ref).concat("\t").concat(var).concat("\t").concat(".");
-                       String goodLine = "chr".concat(chrom).concat("\t").concat(String.valueOf(begin)).concat("\t").
+                       /*
+                        * depending of the vcf file version, check if chromosome starts with "chr" or not
+                        */ 
+                       String goodLine;
+                       if (chrom.startsWith("chr")) {
+                          goodLine = chrom.concat("\t").concat(String.valueOf(begin)).concat("\t").
+                            concat(String.valueOf(end)).concat("\t").concat(varType).concat("\t").concat(ref).concat("\t").concat(var).concat("\t").concat(genotype); 
+                       }else {
+                          goodLine = "chr".concat(chrom).concat("\t").concat(String.valueOf(begin)).concat("\t").
                             concat(String.valueOf(end)).concat("\t").concat(varType).concat("\t").concat(ref).concat("\t").concat(var).concat("\t").concat(genotype);
+                       }
                         bw.write(goodLine);
                         bw.newLine();
                         bw.close();

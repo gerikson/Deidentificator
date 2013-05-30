@@ -166,7 +166,6 @@ class Identifier {
                          }
                         catch(Exception e) {} 
                  }
-                     //if begin position of the annotated file is bigger, move on becouse it's probably a new 
              }
                  continue;
          }
