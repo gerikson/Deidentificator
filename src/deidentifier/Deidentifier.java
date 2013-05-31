@@ -331,7 +331,7 @@ public class Deidentifier extends JFrame implements Runnable  {
                          JFrame frame =  new JFrame();
                 frame.setContentPane(new JPanel());
                //Display the window.
-               frame.setSize(550, 160);
+               frame.setSize(650, 160);
                frame.setBackground(Color.white);
                frame.setVisible(true); 
                frame.setTitle("Read Me!");
@@ -446,7 +446,7 @@ public class Deidentifier extends JFrame implements Runnable  {
                 JFrame frame =  new JFrame();
                 frame.setContentPane(new JPanel());
                //Display the window.
-               frame.setSize(550, 160);
+               frame.setSize(650, 160);
                frame.setBackground(Color.white);
                frame.setVisible(true); 
                frame.setTitle("Read Me!");

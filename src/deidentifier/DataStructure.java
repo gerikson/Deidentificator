@@ -25,6 +25,11 @@ public class DataStructure {
                        String chrom = inputLine[0];
                        String[] g = inputLine[9].split(":");
                        String genotype = g[0];
+                       //if multiple genotypes, extract all of them
+                       for (int i = 10; i< inputLine.length; i++) {
+                           String[] t = inputLine[9].split(":"); 
+                           genotype = genotype + ":" + t[0];
+                       }
                        
                        /*
                         * something to do with the offset position 0 to 1
