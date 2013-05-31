@@ -505,27 +505,37 @@ public static void deleteDoubles() throws FileNotFoundException, IOException {
         String newName = fileName.concat(".Deidentified");
         BufferedWriter bw = new BufferedWriter(new FileWriter(newName));  
         while((line = bReader.readLine()) != null) {
-            //if there is haplotype
-            if (line.endsWith("0") || line.endsWith("1") || line.endsWith(".")) {
-                //delete the haplotype
-                line = line.substring(0, line.length() - 3);
-            }
+       
+            String newLine = "";
+
+                /*
+                 * Need to get rid of the haplotype but we don't know how long it is if multiple 
+                 * genomes in file, also we need to get rid of the last tab
+                 */
+                String[] lin = line.split("\t");
+                newLine = lin[0];
+                
+                for (int i=1; i<6; i++) {
+                    newLine = newLine.concat("\t").concat(lin[i]);
+                    
+                }
+
             //check to see if this is the first line
             if (previousLine.equals("")) {
-                previousLine = line;
+                previousLine = newLine;
                 /* this is for now so it can go through the pipeline, I need to 
                 **add first and last line, I will have to delete this step once validator is fixed
                 */
-                String tempLine = ".".concat("\t").concat(line).concat("\t").concat(".");
+                String tempLine = "-".concat("\t").concat(newLine).concat("\t").concat("-");
                 bw.write(tempLine);
                 bw.newLine();
-      
                 continue;
             } 
+            
+            
             //is this line a douple, don't copy it and skip to the next line
-            else if (previousLine.equals(line)) {
-                duplicatedVariants++;
-            //    System.out.println("line is: " + line);
+            else if (previousLine.equals(newLine)) {
+                 duplicatedVariants++;
                 continue;
                 
             } else {
@@ -533,10 +543,10 @@ public static void deleteDoubles() throws FileNotFoundException, IOException {
                 * this is for now so it can go through the pipeline, I need to 
                 **add first and last column, I will have to delete this step once validator is fixed
                 */
-                String tempLine = ".".concat("\t").concat(line).concat("\t").concat(".");
+                String tempLine = "-".concat("\t").concat(newLine).concat("\t").concat("-");
                 bw.write(tempLine);
                 bw.newLine();
-                previousLine = line;
+                previousLine = newLine;
             }
                        
         }
@@ -555,9 +565,9 @@ public static void deleteDoubles() throws FileNotFoundException, IOException {
 
 public static void cleanUp() throws IOException {
     
-     //   Runtime.getRuntime().exec("rm combined_sorted.txt");
-     //   Runtime.getRuntime().exec("rm Deidentified.txt");
-     //   Runtime.getRuntime().exec("rm Combined.txt");
+       Runtime.getRuntime().exec("rm combined_sorted.txt");
+       Runtime.getRuntime().exec("rm Deidentified.txt");
+       Runtime.getRuntime().exec("rm Combined.txt");
         
   //      Runtime.getRuntime().exec("mkdir IdentifiedFile");
    //     Runtime.getRuntime().exec("cp parse.txt IdentifiedFile/");
