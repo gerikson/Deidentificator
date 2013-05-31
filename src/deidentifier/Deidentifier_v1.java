@@ -4,9 +4,7 @@
  */
 package deidentifier;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,58 +16,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.border.Border;
 
 /**
  *
  * @author gerikson
  */
-public class Deidentifier extends JFrame implements Runnable  {
+public class Deidentifier_v1 {
     public static javax.swing.JFileChooser fileChooser;
     public static File file;
         //ShowTable thread management
     public static ExecutorService threadExecutor;
     public static String fileName;
     public static String newNameGz;
-    
-    public static JFrame frame;
-    public static Container content;
-    public static JProgressBar progressBar;
-    public static Border border;
-    public static double percentage = 0;
 
-    public Deidentifier(){
+    public Deidentifier_v1(){
         fileChooser = new javax.swing.JFileChooser();
-        
-         frame = new JFrame("Deidentificator");
-         content = frame.getContentPane();
-         progressBar = new JProgressBar();
-      //   border = BorderFactory.createTitledBorder("Deidentification happening!");
-      //   progressBar.setBorder(border);
-      //   content.add(progressBar, BorderLayout.NORTH);
-         frame.setSize(300, 100);
-       //  frame.setVisible(true);
     }
     
     //desides what file is this: complete genomics or vcf file
     public void Validator() throws FileNotFoundException, IOException{
-       
        int returnVal = fileChooser.showOpenDialog(fileChooser);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
         file = fileChooser.getSelectedFile();
         fileName = file.getName();
-        
         /*
          * take care of the tar.gz , bz2 or zip
          */
@@ -93,13 +68,6 @@ public class Deidentifier extends JFrame implements Runnable  {
         }
         
         else {
-            border = BorderFactory.createTitledBorder("Validating data");
-            progressBar.setBorder(border);
-            content.add(progressBar, BorderLayout.NORTH);
-            percentage = 2;
-            progressBar.setValue(2);
-            progressBar.setStringPainted(true);
-            frame.setVisible(true);
       /*     Notification rf2 = new Notification();
            threadExecutor = Executors.newFixedThreadPool(1);
            threadExecutor.execute(rf2);
@@ -107,10 +75,10 @@ public class Deidentifier extends JFrame implements Runnable  {
          boolean masterVar = false;
          boolean var = false;
          boolean vcf = false;
-         BufferedReader bReader;
-         bReader = new BufferedReader(
-         new FileReader(file));
-         String line = bReader.readLine();
+        BufferedReader bReader;
+        bReader = new BufferedReader(
+        new FileReader(file));
+        String line = bReader.readLine();
 
          while((line = bReader.readLine()) != null) {
                              
@@ -321,7 +289,7 @@ public class Deidentifier extends JFrame implements Runnable  {
          deleteDoubles();
          //delete the unused files, keep the parsed file
          cleanUp();
-                  //sort the parsed file for future reference
+         //sort the parsed file for future reference
          sortFile("parsed.txt");
          //change file name for the user to be easier to identify
          String filename = file.getName();
@@ -365,11 +333,7 @@ public class Deidentifier extends JFrame implements Runnable  {
      
     
     public void openVCF(File file) throws FileNotFoundException, IOException{
-        border = BorderFactory.createTitledBorder("Parsing data");
-        progressBar.setBorder(border);
-        content.add(progressBar, BorderLayout.NORTH);
-        frame.setVisible(true);
-        int counter = 0;    
+
         String fileName = file.getName();
         BufferedReader bReader;
         bReader = new BufferedReader(
@@ -387,54 +351,22 @@ public class Deidentifier extends JFrame implements Runnable  {
                         
                         continue; 
                     } else {
-                        counter ++;
-                         
-                        if ((counter%10000) == 0){     
-                            // Loading.frame.dispose();
-                           //  System.out.print("Parsing VCF file" + counter + "\t");
-                             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                             Calendar cal = Calendar.getInstance();
-                             System.out.println(dateFormat.format(cal.getTime()));
-                             percentage = percentage + 1.0;
-                             int b = (int) percentage;  
-                             progressBar.setValue(b);
-                             progressBar.setStringPainted(true);
-             }
+                                                  
                         DataStructure ob1 = new DataStructure(line);
                        
         }
     }
          System.out.println("Number of variants in first chromosome is: " + DataStructure.datacount);
          //sort the parsed file for future reference
-         border = BorderFactory.createTitledBorder("Sorting file");
-         progressBar.setBorder(border);
-         content.add(progressBar, BorderLayout.NORTH);
-         progressBar.setValue(80);
-         progressBar.setStringPainted(true);
          sortFile("parsed.txt");
          //add the snp132Flagged.vars to the end of the file
-         border = BorderFactory.createTitledBorder("Adding clinically associated variants");
-         progressBar.setBorder(border);
-         content.add(progressBar, BorderLayout.NORTH);
-         progressBar.setValue(85);
-         progressBar.setStringPainted(true);
          concat();
          // sorting the PipelineInput.txt by chromosome, begin, end
          JavaRunCommand();   
          // delete variants if they are already found in the input file
          deleteDoubles();
-         border = BorderFactory.createTitledBorder("Remove duplicated variants");
-         progressBar.setBorder(border);
-         content.add(progressBar, BorderLayout.NORTH);
-         progressBar.setValue(90);
-         progressBar.setStringPainted(true);
          //delete the unused files, keep the parsed file
          cleanUp();
-         border = BorderFactory.createTitledBorder("Clean up");
-         progressBar.setBorder(border);
-         content.add(progressBar, BorderLayout.NORTH);
-         progressBar.setValue(90);
-         progressBar.setStringPainted(true);
          //sort the parsed file for future reference
          sortFile("parsed.txt");
          //change file name for the user to be easier to identify
@@ -442,7 +374,6 @@ public class Deidentifier extends JFrame implements Runnable  {
          String f = filename.concat(".").concat("Identified");
          Runtime.getRuntime().exec("mv parsed_sorted.txt " + f);
          Runtime.getRuntime().exec("rm parsed.txt");
-         frame.removeAll();
                 JFrame frame =  new JFrame();
                 frame.setContentPane(new JPanel());
                //Display the window.
@@ -494,12 +425,12 @@ public void concat() throws IOException{
             out2.close();  
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Deidentifier.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Deidentifier_v1.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 in.close();
             } catch (IOException ex) {
-                Logger.getLogger(Deidentifier.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Deidentifier_v1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }    
@@ -639,25 +570,5 @@ public static void cleanUp() throws IOException {
     //    Runtime.getRuntime().exec("rm parse.txt");
         
 }
-
-    @Override
-    public void run() {
-     
-            final String orgName = Thread.currentThread().getName();
-            Thread.currentThread().setName(orgName + "firstThread");
-            try {
-                   percentage=0;
-            try {
-                Validator();
-            //   inputData(arrayOfLines, dataLines, selection, headers);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Deidentifier.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Deidentifier.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            } finally {
-                Thread.currentThread().setName(orgName);
-            }
-        }
 }
  

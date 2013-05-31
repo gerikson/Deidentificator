@@ -4,6 +4,8 @@ package deidentifier;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
@@ -19,6 +21,10 @@ import javax.swing.JMenuItem;
  */
 public class Interface extends javax.swing.JFrame {
 
+    //thread management
+    public static ExecutorService threadExecutor;
+    public static boolean threadStat = false; 
+    public static int sortStat = 0;
     /**
      * Creates new form Interface
      */
@@ -113,6 +119,11 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
             Deidentifier dei = new Deidentifier();
+            threadExecutor = Executors.newFixedThreadPool(1);
+            threadStat = true;
+            threadExecutor.execute(dei);
+            threadExecutor.shutdown();
+   /*     
         try {
             dei.Validator();
        } catch (FileNotFoundException ex) {
@@ -121,7 +132,7 @@ public class Interface extends javax.swing.JFrame {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-
+*/
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
