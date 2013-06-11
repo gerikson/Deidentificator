@@ -136,7 +136,7 @@ public class Interface extends javax.swing.JFrame {
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        Identifier dei = new Identifier();
+        Identifier_v1 dei = new Identifier_v1();
         try {
           dei.openAnnotatedFile();
 

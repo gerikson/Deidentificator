@@ -5,7 +5,6 @@
 package deidentifier;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,14 +20,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.border.Border;
 
 /**
  *
  * @author gerikson
  */
-class Identifier extends JFrame implements Runnable{
+class Identifier_v1 {
     
     public static javax.swing.JFileChooser fileChooser;
     public static File file;
@@ -36,19 +33,8 @@ class Identifier extends JFrame implements Runnable{
     public static String head;
     public static String fileName;
     
-    public static JFrame frame;
-    public static Container content;
-    public static JProgressBar progressBar;
-    public static Border border;
-    public static double percentage = 0;
-    
-    public Identifier(){
+    public Identifier_v1(){
         fileChooser = new javax.swing.JFileChooser();
-        
-         frame = new JFrame("Deidentificator");
-         content = frame.getContentPane();
-         progressBar = new JProgressBar();
-         frame.setSize(300, 100);
     }
     
     
@@ -115,9 +101,9 @@ class Identifier extends JFrame implements Runnable{
                        try {
                            LoadIdentified();
                        } catch (FileNotFoundException ex) {
-                           Logger.getLogger(Identifier.class.getName()).log(Level.SEVERE, null, ex);
+                           Logger.getLogger(Identifier_v1.class.getName()).log(Level.SEVERE, null, ex);
                        } catch (IOException ex) {
-                           Logger.getLogger(Identifier.class.getName()).log(Level.SEVERE, null, ex);
+                           Logger.getLogger(Identifier_v1.class.getName()).log(Level.SEVERE, null, ex);
                        }
                   }
                });
@@ -137,8 +123,6 @@ class Identifier extends JFrame implements Runnable{
         new FileReader(file));
        String line;
          while((line = bReader.readLine()) != null) {
-             
-             
              
              String[] temp = line.split("\t");
              if (datacount > AnnotatedData.size()) {
@@ -188,16 +172,4 @@ class Identifier extends JFrame implements Runnable{
         }
     }
 } 
-    
-        @Override
-    public void run() {
-     
-            final String orgName = Thread.currentThread().getName();
-            Thread.currentThread().setName(orgName + "firstThread");
-            try {
-                   percentage=0;
-            } finally {
-                Thread.currentThread().setName(orgName);
-            }
-        }
 }

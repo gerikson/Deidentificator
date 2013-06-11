@@ -1,3 +1,5 @@
-*progress bar
+*progress bar-done for vcf deidentifier, need to do for the identifier
 *check the ends and make sure the result file is consistent 8 columns - done 5/30
 *put it on the web, make it's own page
+*fix the identifier - remove the notifications when file was loaded
+*add progress bar to the identifier

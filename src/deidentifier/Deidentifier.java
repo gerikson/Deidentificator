@@ -55,11 +55,8 @@ public class Deidentifier extends JFrame implements Runnable  {
          frame = new JFrame("Deidentificator");
          content = frame.getContentPane();
          progressBar = new JProgressBar();
-      //   border = BorderFactory.createTitledBorder("Deidentification happening!");
-      //   progressBar.setBorder(border);
-      //   content.add(progressBar, BorderLayout.NORTH);
          frame.setSize(300, 100);
-       //  frame.setVisible(true);
+       
     }
     
     //desides what file is this: complete genomics or vcf file
